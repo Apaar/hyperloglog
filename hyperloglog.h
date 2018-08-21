@@ -20,14 +20,11 @@ public:
     }
 
 private:
-    uint32_t extractBits(uint32_t hash, uint32_t low, uint32_t high);
     double indicatorFunction();
     double alpha(uint32_t m);
     uint8_t clz32(uint32_t x);
     uint32_t countZeros();
-    uint64_t twoPow32() {
-        return uint64_t(1) << uint64_t(32);
-    }
+
     std::unique_ptr<uint8_t[]> registers;
 
     uint32_t numRegisters;
