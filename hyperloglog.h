@@ -10,8 +10,14 @@ class HyperLogLog {
 public:
     HyperLogLog(uint32_t precision);
     void Add(uint32_t itemHash);
-    void Merge(HyperLogLog* other);
     uint64_t Count();
+    double Error();
+
+    // The other hyperloglog must be of same precision
+    void Merge(HyperLogLog* other);
+    uint8_t FetchRegister(int index) {
+        return registers[index];
+    }
 
 private:
     uint32_t extractBits(uint32_t hash, uint32_t low, uint32_t high);

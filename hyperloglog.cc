@@ -4,7 +4,8 @@
 
 HyperLogLog::HyperLogLog(uint32_t precision) {
     this->precision = precision;
-    this->numRegisters = 1 << precision; // 2^left most bit position
+    this->numRegisters = 1 << precision; // 2^precision
+    std::cout << "Number of registers " << numRegisters << std::endl;
     this->registers = std::make_unique<uint8_t[]>(this->numRegisters);
 }
 
@@ -30,6 +31,18 @@ uint64_t HyperLogLog::Count() {
         return est;
     }
     return uint64_t(-(twoPow32()) * std::log(1 - est / (twoPow32())));
+}
+
+double HyperLogLog::Error() {
+    return 1.04 / std::sqrt(numRegisters);
+}
+
+void Merge(HyperLogLog* other) {
+    for (auto i = 0; i < numRegisters; i++) {
+        if (other->FetchRegister(i) > registers[i]) {
+            registers[i] = other->FetchRegister(i);
+        }
+    }
 }
 
 uint32_t HyperLogLog::countZeros() {
