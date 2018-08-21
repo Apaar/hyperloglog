@@ -1,3 +1,3 @@
-#hyperloglog
+Implements HyperLogLog Algorithm -
 
-C++ implementation of hyperloglog and hyperloglog++
+Paper - http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf
